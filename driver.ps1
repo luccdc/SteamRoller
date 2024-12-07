@@ -181,8 +181,8 @@ function ChangeLocalPasswords ($ServersList, $cd, $admin) {
 	}
     Catch {
     	  Write-Output "Could not access " $_
-    	} #>
-  }
+    	} 
+  }#>
 }
 
 function ChangeADPass () {
