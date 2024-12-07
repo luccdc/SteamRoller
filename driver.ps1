@@ -143,6 +143,7 @@ function StartSMBShare ($cd) {
 
 $passFuncs = {
 function ChangeLocalPasswords ($ServersList, $cd, $admin) {
+<#
   Write-Host "Changing local passwords" -ForegroundColor Green
   $newPass="Superchiapet1"
   $cmdCommand1 = @"
@@ -180,11 +181,12 @@ function ChangeLocalPasswords ($ServersList, $cd, $admin) {
 	}
     Catch {
     	  Write-Output "Could not access " $_
-    	}
+    	} #>
   }
 }
 
 function ChangeADPass () {
+<#
     Write-Host "Changing Active Directory Users' Passwords" -ForegroundColor Green
     $domain = $(Get-ADDomain | Select -ExpandProperty NetBIOSName)
     Add-Type -AssemblyName System.Web
@@ -194,7 +196,7 @@ function ChangeADPass () {
     $pass = [System.Web.Security.Membership]::GeneratePassword(17,2)
     Write-Output "$domain\$user,$pass"
     Set-ADAccountPassword -Identity $_.Name -Reset -NewPassword (ConvertTo-SecureString -AsPlainText $pass -Force) 
-    $pass = $Null
+    $pass = $Null #>
   }
 }
 }
@@ -250,8 +252,10 @@ function RemoveLinks ($ServersList, $DCList) {
 }
 
 function ChangeAdminPass () {
+<#
     Write-Host "Setting a new administrator password" -ForegroundColor Yellow
     net user $env:username *
+    #>
     # $newPass = Read-Host "Please set a new password for $(whoami)" -AsSecureString
     # Set-ADAccountPassword -Identity $env:username -NewPassword $newPass -Reset
     # netdom resetpwd /s:localhost /ud: $env:username /pd:*
